@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from "react";
 import {
   ThemeProvider,
-  createTheme,
-  makeStyles,
   Container,
   TextField,
   Typography,
@@ -15,12 +13,15 @@ import {
   TableBody,
   useMediaQuery,
   LinearProgress,
-} from "@material-ui/core";
+  createTheme,
+  useTheme,
+  Pagination
+} from "@mui/material";
+import {  makeStyles } from "@mui/styles"
 import { Coins } from "@/config/api";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { cryptoState } from "./context/context";
-import { Pagination, PaginationItem } from "@material-ui/lab";
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -72,13 +73,14 @@ const CoinsTable = () => {
     change: string;
     marketCap: string;
   }
-  const classes = useStyles();
+  const theme = useTheme()
+  const classes = useStyles(theme);
   const darkTheme = createTheme({
     palette: {
       primary: {
         main: "#fff",
       },
-      type: "dark",
+      mode: "dark",
     },
   });
   useEffect(() => {
@@ -173,6 +175,7 @@ const CoinsTable = () => {
                               alt={coin.symbol}
                               width={50}
                               height={50}
+                              priority
                             />
                             <div className={classes.wrapper}>
                               <Typography

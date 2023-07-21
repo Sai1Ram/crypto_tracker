@@ -2,22 +2,14 @@
 import { cryptoState } from "@/app/context/context";
 import Head from "@/app/head";
 import { HistoricalChart, SingleCoinApi } from "@/config/api";
-import {
-  Box,
-  CircularProgress,
-  Container,
-  ThemeProvider,
-  Typography,
-  createTheme,
-  makeStyles,
-  useMediaQuery,
-} from "@material-ui/core";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import SelectButton from "./SelectButton";
 import Loading from "@/app/loading"
 import { Chart, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.js'; // Import the necessary scale
+import { Box, CircularProgress, ThemeProvider, Typography, createTheme,  useMediaQuery, useTheme } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 
@@ -38,12 +30,12 @@ interface Coin {
   marketCap: string;
   rank: number;
 }
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: any) => ({
   App: {
     backgroundColor: "#14161a",
     height: "100vh",
     color: "white",
-    [theme.breakpoints.down('sm')]:{
+    [theme.breakpoints?.down('sm')]:{
       minHeight: "100vh",
       height: "auto",
     }
@@ -51,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
     padding: 25,
-    [theme.breakpoints.down('sm')]:{
+    [theme.breakpoints?.down('sm')]:{
       flexDirection: "column",
       padding: 15,
     }
@@ -65,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     height: "100%",
     flexDirection: "column",
-    [theme.breakpoints.down('sm')]:{
+    [theme.breakpoints?.down('sm')]:{
       width:"100%",
       borderBottom: "solid 5px gray",
       borderRight: "solid 0px gray",
@@ -76,14 +68,14 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 30,
     fontWeight: "bold",
     fontFamily: "Montserrat",
-    [theme.breakpoints.down('sm')]:{
+    [theme.breakpoints?.down('sm')]:{
       fontSize: 15,
     }
   },
   infoDec: {
     fontSize: 25,
     fontFamily: "Montserrat",
-    [theme.breakpoints.down('sm')]:{
+    [theme.breakpoints?.down('sm')]:{
       fontSize: 15,
     }
   },
@@ -93,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "start",
     marginTop: 8,
     gap: 10,
-    [theme.breakpoints.down('sm')]:{
+    [theme.breakpoints?.down('sm')]:{
       marginTop: 4,
     }
   },
@@ -105,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent:"center",
     alignItems:"center",
     paddingLeft:20,
-    [theme.breakpoints.down('sm')]:{
+    [theme.breakpoints?.down('sm')]:{
       width:"100%",
       paddingLeft:0,
       height: "100%",
@@ -120,7 +112,8 @@ const page: React.FC<PageProps> = ({ params }) => {
   const [flag,setflag] = useState(false);
   const [days, setDays] = useState("24h");
   const { currency, symbol } = cryptoState();
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
   const isSmallScreen = useMediaQuery('(max-width: 600px)');
   const isMobileScreen = useMediaQuery('(max-width: 480px)');
   const darkTheme = createTheme({
@@ -128,7 +121,7 @@ const page: React.FC<PageProps> = ({ params }) => {
       primary: {
         main: "#fff",
       },
-      type: "dark",
+      mode: "dark",
     },
   });
   useEffect(() => {
@@ -180,6 +173,7 @@ const page: React.FC<PageProps> = ({ params }) => {
             <Image
               src={coinData.iconUrl}
               alt={coinData.symbol}
+              priority
               width={isMobileScreen ? 100 :250}
               height={isMobileScreen ? 100 :250}
             />

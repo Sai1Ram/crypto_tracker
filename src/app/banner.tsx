@@ -1,7 +1,8 @@
 "use client";
-import { Container, makeStyles, Typography, useMediaQuery } from "@material-ui/core";
+import { Container, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
 import Carosel from "./carosel";
+import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles(() => ({
   banner: {
     backgroundImage: `url(./banner2.jpg)`,
@@ -22,7 +23,8 @@ const useStyles = makeStyles(() => ({
   }
 }));
 const banner = () => {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
     // Define the media query
   const isSmallScreen = useMediaQuery('(max-width: 600px)');
   const isMobileScreen = useMediaQuery('(max-width: 480px)');

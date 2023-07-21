@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
 import { TrendingCoins } from "@/config/api";
 import { cryptoState } from "./context/context";
-import { Typography, makeStyles, useMediaQuery } from "@material-ui/core";
+import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-
+import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles(() => ({
   carosel: {
     height: "50%",
@@ -23,7 +23,8 @@ const useStyles = makeStyles(() => ({
 const carosel = () => {
   const { currency, symbol } = cryptoState();
   const [trendingCoins, setTredingCoins] = useState([]);
-  const classes = useStyles();
+  const theme = useTheme()
+  const classes = useStyles(theme);
   // Define the media query
   const isSmallScreen = useMediaQuery('(max-width: 600px)');
   const isMobileScreen = useMediaQuery('(max-width: 480px)');
@@ -35,6 +36,7 @@ const carosel = () => {
           key={index}
           src={coin["iconUrl"]}
           alt={coin["symbol"]}
+          priority
           width={isMobileScreen ? 30 : isSmallScreen ? 45 : 85}
           height={isMobileScreen ? 30 : isSmallScreen ? 45 : 85}
         />

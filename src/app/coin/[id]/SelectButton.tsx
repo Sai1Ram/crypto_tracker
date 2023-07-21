@@ -1,5 +1,6 @@
 'use client'
-import { makeStyles } from "@material-ui/core";
+import { useTheme } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import {MouseEventHandler} from 'react'
 
 interface btnProps  {
@@ -8,7 +9,7 @@ selected:boolean;
 onClick: MouseEventHandler<HTMLSpanElement>
 }
 const SelectButton:React.FC<btnProps> = ({ children, selected, onClick }) => {
-  const useStyles = makeStyles((theme)=>({
+  const useStyles = makeStyles((theme: any)=>({
     selectbutton: {
       border: "1px solid gold",
       borderRadius: 5,
@@ -26,7 +27,7 @@ const SelectButton:React.FC<btnProps> = ({ children, selected, onClick }) => {
       },
       width: "22%",
       //   margin: 5,
-      [theme.breakpoints.down("sm")]:{
+      [theme.breakpoints?.down("sm")]:{
         padding: 5,
         fontWeight: 300,
         width: "100%",
@@ -36,8 +37,8 @@ const SelectButton:React.FC<btnProps> = ({ children, selected, onClick }) => {
       }
     },
   }));
-
-  const classes = useStyles();
+const theme = useTheme();
+  const classes = useStyles(theme);
 
   return (
     <span onClick={onClick} className={classes.selectbutton}>

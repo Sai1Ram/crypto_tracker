@@ -1,19 +1,19 @@
 "use client";
 import {
   AppBar,
-  Container,
   Typography,
   Toolbar,
   Select,
   MenuItem,
-  makeStyles,
-  createTheme,
   ThemeProvider,
-} from "@material-ui/core";
+  createTheme,
+  useTheme
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import Link from "next/link";
 import React from "react";
 import {cryptoState} from "./context/context"
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme : any) => ({
   title: {
     flex: 1,
     color: "gold",
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     fontWeight: "bold",
     padding:"0px 30px",
-    [theme.breakpoints.down('xs')]:{
+    [theme.breakpoints?.down('xs')]:{
       fontSize:"13px",
       fontWeight: "normal",
       padding:"0px 0px",
@@ -31,13 +31,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Head = () => {
   const {currency, setCurrency} = cryptoState();
-  const classes = useStyles();
+  const theme = useTheme()
+  const classes = useStyles(theme);
   const darkTheme = createTheme({
     palette: {
       primary: {
         main: "#fff",
       },
-      type: "dark",
+      mode: "dark",
     },
   });
   return (
