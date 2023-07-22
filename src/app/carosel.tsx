@@ -6,7 +6,7 @@ import { cryptoState } from "./context/context";
 import { Typography, styled, useMediaQuery, useTheme } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-const Carosel = styled("div")(({theme})=>({
+const CaroselStyles = styled("div")(({theme})=>({
   height: "50%",
   display: "flex",
   alignItems: "center",
@@ -18,7 +18,7 @@ const LinkStyle = styled("a")(({theme})=>({
   alignItems: "center",
 }))
 
-const carosel = () => {
+const Carosel = () => {
   const { currency, symbol } = cryptoState();
   const [trendingCoins, setTredingCoins] = useState([]);
 
@@ -85,7 +85,7 @@ const carosel = () => {
   }, [currency]);
 
   return (
-    <Carosel>
+    <CaroselStyles>
       <AliceCarousel
         mouseTracking
         infinite
@@ -97,8 +97,8 @@ const carosel = () => {
         responsive={responsive}
         items={items}
       />
-    </Carosel>
+    </CaroselStyles>
   );
 };
 
-export default carosel;
+export default Carosel;
