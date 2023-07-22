@@ -41,7 +41,8 @@ const Wrapper = styled('div')(({})=>({
 }))
 const Name = styled('h2')(({})=>({
   color: "white",
-  fontFamily: "Montserrat"
+  fontFamily: "Montserrat",
+  fontWeight: "normal"
 }))
 const PaginationStyle = styled('h2')(({})=>({
   display: "flex",
@@ -57,7 +58,7 @@ const PaginationStyle = styled('h2')(({})=>({
   //   backgroundColor: "gold",
   // },
 const CoinsTable = () => {
-  const { symbol } = CryptoState();
+  const { symbol, currency } = CryptoState();
   const [coinsList, setCoinsList] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
@@ -84,7 +85,7 @@ const CoinsTable = () => {
   useEffect(() => {
     setLoading(true);
     const fetchAllCoins = async () => {
-      const url = Coins();
+      const url = Coins(currency);
       const option = {
         method: "GET",
         headers: {
@@ -98,7 +99,7 @@ const CoinsTable = () => {
       setLoading(false);
     };
     fetchAllCoins();
-  }, []);
+  }, [currency]);
   const isMobileScreen = useMediaQuery("(max-width: 480px)");
 
   const tableHead = ["Coins", "Price", "24H Change", "Market Cap"];

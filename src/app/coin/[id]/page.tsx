@@ -137,9 +137,9 @@ const Page: React.FC<PageProps> = ({ params }) => {
           "X-RapidAPI-Host": process.env.NEXT_PUBLIC_RAPID_API_HOST as string,
         },
       };
-      const responseCoinInfo = await fetch(SingleCoinApi(params.id), option); 
+      const responseCoinInfo = await fetch(SingleCoinApi(params.id, currency), option); 
       const coinInfo = await responseCoinInfo.json();      
-      const responsePriceHistory = await fetch(HistoricalChart(params.id, days), option);   // fetch data with respect to days 
+      const responsePriceHistory = await fetch(HistoricalChart(params.id, days, currency), option);   // fetch data with respect to days 
       const priceHistory = await responsePriceHistory.json();
       setCoinData(coinInfo.data.coin);
       setChatData(priceHistory.data.history)
@@ -147,7 +147,7 @@ const Page: React.FC<PageProps> = ({ params }) => {
       setLoading(false)
     };
     fetchSingleCoin();
-  }, [days]);
+  }, [days, currency]);
   const chartDays = [
     {
       label: "24 Hours",

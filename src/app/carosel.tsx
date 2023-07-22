@@ -73,7 +73,7 @@ const Carosel = () => {
             "X-RapidAPI-Host": process.env.NEXT_PUBLIC_RAPID_API_HOST as string,
           },
         };
-        const response = await fetch(TrendingCoins(), options);
+        const response = await fetch(TrendingCoins(currency), options);
         const data = await response.json();
         setTredingCoins(data.data.coins);
       } catch (error) {

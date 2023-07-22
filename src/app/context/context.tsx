@@ -15,10 +15,10 @@ const Crypto = createContext<CryptoContextProps>({
 
 const Context = ({children}: { children: ReactNode }) => {
     const [symbol, setSymbol] = useState("$");
-    const [currency, setCurrency] = useState("USD");
+    const [currency, setCurrency] = useState(process.env.NEXT_PUBLIC_USD as string);
     useEffect(()=>{
-        if(currency === "INR") setSymbol("₹");
-        if(currency === "USD") setSymbol("$");
+        if(currency === process.env.NEXT_PUBLIC_INR) setSymbol("₹");
+        if(currency === process.env.NEXT_PUBLIC_USD) setSymbol("$");
     }, [currency])
   return (
     <Crypto.Provider value={{setSymbol, symbol, currency, setCurrency}}>
