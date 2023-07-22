@@ -1,5 +1,5 @@
 "use client";
-import { cryptoState } from "@/app/context/context";
+import { CryptoState } from "@/app/context/context";
 import Head from "@/app/head";
 import { HistoricalChart, SingleCoinApi } from "@/config/api";
 import Image from "next/image";
@@ -117,7 +117,7 @@ const Page: React.FC<PageProps> = ({ params }) => {
   const [chatData, setChatData] = useState([]);
   const [flag,setflag] = useState(false);
   const [days, setDays] = useState("24h");
-  const { currency, symbol } = cryptoState();
+  const { currency, symbol } = CryptoState();
   const isSmallScreen = useMediaQuery('(max-width: 600px)');
   const isMobileScreen = useMediaQuery('(max-width: 480px)');
   const darkTheme = createTheme({
@@ -224,7 +224,7 @@ const Page: React.FC<PageProps> = ({ params }) => {
           <>
             <Line
               data={{
-                labels: chatData.map((coin) => {
+                labels: chatData.map((coin, index) => {
                   let date = new Date(coin['timestamp']);
                   let time =
                     date.getHours() > 12

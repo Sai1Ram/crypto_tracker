@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import {cryptoState} from "./context/context"
+import {CryptoState} from "./context/context"
 const Title = styled('div')(({ theme }) => ({
     flex: 1,
     color: "gold",
@@ -26,7 +26,7 @@ const Title = styled('div')(({ theme }) => ({
     }
 }));
 const Head = () => {
-  const {currency, setCurrency} = cryptoState();
+  const {currency, setCurrency} = CryptoState();
   const darkTheme = createTheme({
     palette: {
       primary: {

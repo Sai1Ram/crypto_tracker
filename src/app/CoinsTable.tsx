@@ -21,7 +21,7 @@ import {
 import { Coins } from "@/config/api";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { cryptoState } from "./context/context";
+import { CryptoState } from "./context/context";
 
 
 const Title = styled('h2')(({})=>({
@@ -57,7 +57,7 @@ const PaginationStyle = styled('h2')(({})=>({
   //   backgroundColor: "gold",
   // },
 const CoinsTable = () => {
-  const { symbol } = cryptoState();
+  const { symbol } = CryptoState();
   const [coinsList, setCoinsList] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);

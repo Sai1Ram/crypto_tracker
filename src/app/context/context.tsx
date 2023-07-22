@@ -29,6 +29,6 @@ const Context = ({children}: { children: ReactNode }) => {
 
 export default Context
 
-export const cryptoState = () =>{
+export const CryptoState = () =>{
     return useContext(Crypto);
 }

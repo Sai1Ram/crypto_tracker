@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
 import { TrendingCoins } from "@/config/api";
-import { cryptoState } from "./context/context";
+import { CryptoState } from "./context/context";
 import { Typography, styled, useMediaQuery, useTheme } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,7 +19,7 @@ const LinkStyle = styled("a")(({theme})=>({
 }))
 
 const Carosel = () => {
-  const { currency, symbol } = cryptoState();
+  const { currency, symbol } = CryptoState();
   const [trendingCoins, setTredingCoins] = useState([]);
 
   // Define the media query
@@ -28,7 +28,7 @@ const Carosel = () => {
   const items = trendingCoins.map((coin, index) => {
 
     return (
-      <LinkStyle href={`/coins/${coin["uuid"]}`}>
+      <LinkStyle href={`/coins/${coin["uuid"]}`} key={index}>
         <Image
           key={index}
           src={coin["iconUrl"]}
