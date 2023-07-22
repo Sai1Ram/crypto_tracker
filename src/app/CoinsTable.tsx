@@ -14,48 +14,48 @@ import {
   useMediaQuery,
   LinearProgress,
   createTheme,
-  useTheme,
+
+  styled,
   Pagination
 } from "@mui/material";
-import {  makeStyles } from "@mui/styles"
 import { Coins } from "@/config/api";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { cryptoState } from "./context/context";
 
-const useStyles = makeStyles(() => ({
-  title: {
-    color: "White",
-    fontFamily: "Montserrat",
-    cursor: "pointer",
-    textAlign: "center",
-    padding: 8,
-    fontSize: "1.5rem",
-  },
-  wrapper: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "start",
-    justifyContent: "center",
-  },
 
-  name: {
-    color: "white",
-    fontFamily: "Montserrat",
+const Title = styled('h2')(({})=>({
+  color: "White",
+  fontFamily: "Montserrat",
+  cursor: "pointer",
+  textAlign: "center",
+  padding: 8,
+  fontSize: "1.5rem",
+}))
+
+const Wrapper = styled('div')(({})=>({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "start",
+  justifyContent: "center",
+}))
+const Name = styled('h2')(({})=>({
+  color: "white",
+  fontFamily: "Montserrat"
+}))
+const PaginationStyle = styled('h2')(({})=>({
+  display: "flex",
+  padding: 20,
+  justifyContent: "center",
+  alignItems: "center",
+  "& .MuiPaginationItem-root": {
+    color: "gold",
   },
-  paginationStyle: {
-    display: "flex",
-    padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    "& .MuiPaginationItem-root": {
-      color: "gold",
-    },
-  },
-  colorPrimary: {
-    backgroundColor: "gold",
-  },
-}));
+}))
+
+  // colorPrimary: {
+  //   backgroundColor: "gold",
+  // },
 const CoinsTable = () => {
   const { symbol } = cryptoState();
   const [coinsList, setCoinsList] = useState([]);
@@ -73,8 +73,6 @@ const CoinsTable = () => {
     change: string;
     marketCap: string;
   }
-  const theme = useTheme()
-  const classes = useStyles(theme);
   const darkTheme = createTheme({
     palette: {
       primary: {
@@ -115,9 +113,9 @@ const CoinsTable = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <Container>
-        <Typography className={classes.title}>
+        <Title>
           Cryptocurrency Prices by Market Cap
-        </Typography>
+        </Title>
         <TextField
           label={"Search For a Crypto Currency"}
           variant={"outlined"}
@@ -128,11 +126,7 @@ const CoinsTable = () => {
           value={search}
         ></TextField>
         {loading && (
-          <LinearProgress
-            classes={{
-              colorPrimary: classes.colorPrimary,
-            }}
-          />
+          <LinearProgress/>
         )}
         {!loading && (
           <TableContainer
@@ -177,33 +171,29 @@ const CoinsTable = () => {
                               height={50}
                               priority
                             />
-                            <div className={classes.wrapper}>
-                              <Typography
-                                className={classes.name}
+                            <Wrapper>
+                              <Name
                                 style={{ fontSize: isMobileScreen ? 14 : 22 }}
                               >
                                 {coin.symbol}
-                              </Typography>
-                              <Typography
-                                className={classes.name}
+                              </Name>
+                              <Name
                                 style={{ fontSize: isMobileScreen ? 12 : 16 }}
                               >
                                 {coin.name}
-                              </Typography>
-                            </div>
+                              </Name>
+                            </Wrapper>
                           </div>
                         </TableCell>
                         <TableCell align="center">
-                          <Typography
-                            className={classes.name}
+                          <Name
                             style={{ fontSize: isMobileScreen ? 14 : 22 }}
                           >
                             {`${symbol} ${parseFloat(coin.price).toFixed(3)}`}
-                          </Typography>
+                          </Name>
                         </TableCell>
                         <TableCell align="center">
-                          <Typography
-                            className={classes.name}
+                          <Name
                             style={{ fontSize: 22 }}
                           >
                             {parseFloat(coin.change) >= 0 ? (
@@ -215,11 +205,10 @@ const CoinsTable = () => {
                                 {coin.change}%
                               </Typography>
                             )}
-                          </Typography>
+                          </Name>
                         </TableCell>
                         <TableCell align="center">
-                          <Typography
-                            className={classes.name}
+                          <Name
                             style={{ fontSize: isMobileScreen ? 14 : 22 }}
                           >
                             {`${symbol} ${
@@ -231,7 +220,7 @@ const CoinsTable = () => {
                                     coin.marketCap.slice(0, 6)
                                   ).toLocaleString()
                             }`}
-                          </Typography>
+                          </Name>
                         </TableCell>
                       </TableRow>
                     );
@@ -240,16 +229,17 @@ const CoinsTable = () => {
             </Table>
           </TableContainer>
         )}
+        <PaginationStyle>
         <Pagination
           variant="outlined"
           color="standard"
           count={handleSearch()?.length / 10}
-          onChange={(_, value) => {
+          onChange={(_: any, value: any) => {
             setPage(value - 1);
             window.scroll(0, 450);
           }}
-          classes={{ ul: classes.paginationStyle }}
         ></Pagination>
+        </PaginationStyle>
       </Container>
     </ThemeProvider>
   );

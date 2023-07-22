@@ -1,6 +1,5 @@
 'use client'
-import { useTheme } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { styled, useTheme } from "@mui/material";
 import {MouseEventHandler} from 'react'
 
 interface btnProps  {
@@ -9,9 +8,9 @@ selected:boolean;
 onClick: MouseEventHandler<HTMLSpanElement>
 }
 const SelectButton:React.FC<btnProps> = ({ children, selected, onClick }) => {
-  const useStyles = makeStyles((theme: any)=>({
-    selectbutton: {
-      border: "1px solid gold",
+  const SelectButton = styled('span')(({theme})=>({
+
+    border: "1px solid gold",
       borderRadius: 5,
       padding: 10,
       paddingLeft: 20,
@@ -35,15 +34,13 @@ const SelectButton:React.FC<btnProps> = ({ children, selected, onClick }) => {
         marginRight: 3,
         borderRadius: 3,
       }
-    },
-  }));
-const theme = useTheme();
-  const classes = useStyles(theme);
+  }))
+
 
   return (
-    <span onClick={onClick} className={classes.selectbutton}>
+    <SelectButton onClick={onClick}>
       {children}
-    </span>
+    </SelectButton>
   );
 };
 

@@ -3,35 +3,32 @@ import React, { useEffect, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
 import { TrendingCoins } from "@/config/api";
 import { cryptoState } from "./context/context";
-import { Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Typography, styled, useMediaQuery, useTheme } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import { makeStyles } from "@mui/styles";
-const useStyles = makeStyles(() => ({
-  carosel: {
-    height: "50%",
-    display: "flex",
-    alignItems: "center",
-  },
-  link: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-}));
+const Carosel = styled("div")(({theme})=>({
+  height: "50%",
+  display: "flex",
+  alignItems: "center",
+}))
+const LinkStyle = styled("a")(({theme})=>({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+}))
+
 const carosel = () => {
   const { currency, symbol } = cryptoState();
   const [trendingCoins, setTredingCoins] = useState([]);
-  const theme = useTheme()
-  const classes = useStyles(theme);
+
   // Define the media query
   const isSmallScreen = useMediaQuery('(max-width: 600px)');
   const isMobileScreen = useMediaQuery('(max-width: 480px)');
   const items = trendingCoins.map((coin, index) => {
 
     return (
-      <Link className={classes.link} href={`/coins/${coin["uuid"]}`}>
+      <LinkStyle href={`/coins/${coin["uuid"]}`}>
         <Image
           key={index}
           src={coin["iconUrl"]}
@@ -52,7 +49,7 @@ const carosel = () => {
         }
         </Typography>
         <Typography style={{fontSize: isSmallScreen ? 15 : 20}}>{symbol + parseFloat(coin["price"]).toFixed(3)}</Typography>
-      </Link>
+      </LinkStyle>
     );
 
   });
@@ -88,7 +85,7 @@ const carosel = () => {
   }, [currency]);
 
   return (
-    <div className={classes.carosel}>
+    <Carosel>
       <AliceCarousel
         mouseTracking
         infinite
@@ -100,7 +97,7 @@ const carosel = () => {
         responsive={responsive}
         items={items}
       />
-    </div>
+    </Carosel>
   );
 };
 

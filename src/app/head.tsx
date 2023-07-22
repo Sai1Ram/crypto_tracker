@@ -7,14 +7,12 @@ import {
   MenuItem,
   ThemeProvider,
   createTheme,
-  useTheme
+  styled
 } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import Link from "next/link";
 import React from "react";
 import {cryptoState} from "./context/context"
-const useStyles = makeStyles((theme : any) => ({
-  title: {
+const Title = styled('div')(({ theme }) => ({
     flex: 1,
     color: "gold",
     fontFamily: "Montserrat",
@@ -26,13 +24,9 @@ const useStyles = makeStyles((theme : any) => ({
       fontWeight: "normal",
       padding:"0px 0px",
     }
-  },
-
 }));
 const Head = () => {
   const {currency, setCurrency} = cryptoState();
-  const theme = useTheme()
-  const classes = useStyles(theme);
   const darkTheme = createTheme({
     palette: {
       primary: {
@@ -46,7 +40,7 @@ const Head = () => {
       <AppBar color="transparent" position="static">
           <Toolbar>
             <Link href={"/"} style={{flex:1}}>
-              <Typography className={classes.title}>CRYPTO TRACKER</Typography>
+              <Title>CRYPTO TRACKER</Title>
             </Link>
             <Select
               variant="outlined"

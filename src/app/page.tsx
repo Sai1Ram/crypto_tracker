@@ -1,35 +1,31 @@
-"use client"
+"use client";
 import Head from "./head";
-import { useTheme } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import Banner from "./banner";
 import CoinsTable from "./CoinsTable";
 import { useState } from "react";
 import Loading from "./loading";
 
 export default function Home() {
-  const [flag, setFlag] = useState(false)
-  setTimeout(()=>{setFlag(true)}, 1000)
-  const useStyles = makeStyles(()=>(
-    {App:{
-      backgroundColor:"#14161a",
-      minHeight:"100vh",
-      color:"white",
-      
-    }}
-  ))
-  const theme = useTheme()
-  const classes = useStyles(theme)
+  const [flag, setFlag] = useState(false);
+  setTimeout(() => {
+    setFlag(true);
+  }, 1000);
+  const App = styled("div")(({ theme }) => ({
+    backgroundColor: "#14161a",
+    minHeight: "100vh",
+    color: "white",
+  }));
   return (
     <>
-    {!flag && <Loading/>}
-    {flag && <div
-      className={classes.App}
-      >
-      <Head />
-      <Banner/>
-      <CoinsTable/>
-    </div>}
-      </>
+      {!flag && <Loading />}
+      {flag && (
+        <App>
+          <Head />
+          <Banner />
+          <CoinsTable />
+        </App>
+      )}
+    </>
   );
 }

@@ -8,8 +8,8 @@ import { Line } from "react-chartjs-2";
 import SelectButton from "./SelectButton";
 import Loading from "@/app/loading"
 import { Chart, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.js'; // Import the necessary scale
-import { Box, CircularProgress, ThemeProvider, Typography, createTheme,  useMediaQuery, useTheme } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { CircularProgress, ThemeProvider, Typography, createTheme,  useMediaQuery } from "@mui/material";
+import { styled } from '@mui/material/styles';
 
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 
@@ -30,81 +30,87 @@ interface Coin {
   marketCap: string;
   rank: number;
 }
-const useStyles = makeStyles((theme: any) => ({
-  App: {
-    backgroundColor: "#14161a",
-    height: "100vh",
-    color: "white",
-    [theme.breakpoints?.down('sm')]:{
-      minHeight: "100vh",
-      height: "auto",
-    }
-  },
-  container: {
-    display: "flex",
-    padding: 25,
-    [theme.breakpoints?.down('sm')]:{
-      flexDirection: "column",
-      padding: 15,
-    }
-  },
-  leftBox: {
-    width: "35%",
-    borderRight: "solid 5px gray",
-    borderBottom: "solid 0px gray",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-    flexDirection: "column",
-    [theme.breakpoints?.down('sm')]:{
-      width:"100%",
-      borderBottom: "solid 5px gray",
-      borderRight: "solid 0px gray",
-      paddingBottom: 5
-    }
-  },
-  infoTitle: {
-    fontSize: 30,
-    fontWeight: "bold",
-    fontFamily: "Montserrat",
-    [theme.breakpoints?.down('sm')]:{
-      fontSize: 15,
-    }
-  },
-  infoDec: {
-    fontSize: 25,
-    fontFamily: "Montserrat",
-    [theme.breakpoints?.down('sm')]:{
-      fontSize: 15,
-    }
-  },
-  infoWrapper: {
-    display: "flex",
-    width: "100%",
-    justifyContent: "start",
-    marginTop: 8,
-    gap: 10,
-    [theme.breakpoints?.down('sm')]:{
-      marginTop: 4,
-    }
-  },
 
-  rightBox: {
-    width: "65%",
-    display:"flex",
-    flexDirection:"column",
-    justifyContent:"center",
-    alignItems:"center",
-    paddingLeft:20,
-    [theme.breakpoints?.down('sm')]:{
-      width:"100%",
-      paddingLeft:0,
-      height: "100%",
-      marginTop:20,
-    }
-  },
+
+const App = styled('div')(({ theme }) => ({
+  backgroundColor: "#14161a",
+  height: "100vh",
+  color: "white",
+  [theme.breakpoints.down('sm')]: {
+    minHeight: "100vh",
+    height: "auto",
+  }
 }));
+
+const Container = styled('div')(({ theme }) => ({
+  display: "flex",
+  padding: 25,
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: "column",
+    padding: 15,
+  }
+}));
+
+const LeftBox = styled('div')(({ theme }) => ({
+  width: "35%",
+  borderRight: "solid 5px gray",
+  borderBottom: "solid 0px gray",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100%",
+  flexDirection: "column",
+  [theme.breakpoints.down('sm')]: {
+    width: "100%",
+    borderBottom: "solid 5px gray",
+    borderRight: "solid 0px gray",
+    paddingBottom: 5
+  }
+}));
+
+const InfoTitle = styled('div')(({ theme }) => ({
+  fontSize: 30,
+  fontWeight: "bold",
+  fontFamily: "Montserrat",
+  [theme.breakpoints.down('sm')]: {
+    fontSize: 15,
+  }
+}));
+
+const InfoDec = styled('div')(({ theme }) => ({
+  fontSize: 30,
+  fontFamily: "Montserrat",
+  [theme.breakpoints.down('sm')]: {
+    fontSize: 15,
+  }
+}));
+
+const InfoWrapper = styled('div')(({ theme }) => ({
+  display: "flex",
+  width: "100%",
+  justifyContent: "start",
+  marginTop: 8,
+  gap: 10,
+  [theme.breakpoints.down('sm')]: {
+    marginTop: 4,
+  }
+}));
+
+const RightBox = styled('div')(({ theme }) => ({
+  width: "65%",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  paddingLeft: 20,
+  [theme.breakpoints.down('sm')]: {
+    width: "100%",
+    paddingLeft: 0,
+    height: "100%",
+    marginTop: 20,
+  }
+}));
+
 const page: React.FC<PageProps> = ({ params }) => {
   const [coinData, setCoinData] = useState<Coin>({} as Coin);
   const [loading, setLoading] = useState(true);
@@ -112,8 +118,6 @@ const page: React.FC<PageProps> = ({ params }) => {
   const [flag,setflag] = useState(false);
   const [days, setDays] = useState("24h");
   const { currency, symbol } = cryptoState();
-  const theme = useTheme();
-  const classes = useStyles(theme);
   const isSmallScreen = useMediaQuery('(max-width: 600px)');
   const isMobileScreen = useMediaQuery('(max-width: 480px)');
   const darkTheme = createTheme({
@@ -165,11 +169,11 @@ const page: React.FC<PageProps> = ({ params }) => {
   return (
     <>
     {loading && <Loading/>}
-    {!loading && <div className={classes.App}>
+    {!loading && <App>
       <Head />
       <ThemeProvider theme={darkTheme}>
-        <Box className={classes.container}>
-          <Box className={classes.leftBox}>
+        <Container>
+          <LeftBox>
             <Image
               src={coinData.iconUrl}
               alt={coinData.symbol}
@@ -181,34 +185,34 @@ const page: React.FC<PageProps> = ({ params }) => {
               {coinData.name}
             </Typography>
             <Typography style={{fontFamily:"Montserrat", fontSize:isMobileScreen ? 15 : 20}}>{coinData.description}</Typography>
-            <div className={classes.infoWrapper}>
-              <Typography className={classes.infoTitle}>Rank: </Typography>
-              <Typography className={classes.infoDec}>
+            <InfoWrapper>
+              <InfoTitle>Rank: </InfoTitle>
+              <InfoDec>
                 {coinData.rank}
-              </Typography>
-            </div>
-            <div className={classes.infoWrapper}>
-              <Typography className={classes.infoTitle}>
+              </InfoDec>
+            </InfoWrapper>
+            <InfoWrapper>
+              <InfoTitle>
                 Current Price:{" "}
-              </Typography>
-              <Typography className={classes.infoDec}>
+              </InfoTitle>
+              <InfoDec>
                 {symbol + " " + parseFloat(coinData.price).toFixed(3)}
-              </Typography>
-            </div>
-            <div className={classes.infoWrapper}>
-              <Typography className={classes.infoTitle}>
+              </InfoDec>
+            </InfoWrapper>
+            <InfoWrapper>
+              <InfoTitle>
                 Market Cap:{" "}
-              </Typography>
-              <Typography className={classes.infoDec}>{`${symbol} ${
+              </InfoTitle>
+              <InfoDec>{`${symbol} ${
                 coinData.marketCap?.length >= 6
                   ? parseFloat(
                       coinData.marketCap.slice(0, 6)
                     ).toLocaleString() + " M"
                   : parseFloat(coinData.marketCap?.slice(0, 6)).toLocaleString()
-              }`}</Typography>
-            </div>
-          </Box>
-          <Box className={classes.rightBox}>
+              }`}</InfoDec>
+            </InfoWrapper>
+          </LeftBox>
+          <RightBox>
         {!chatData || flag === false ? (
 
           <CircularProgress
@@ -267,10 +271,10 @@ const page: React.FC<PageProps> = ({ params }) => {
             </div>
           </>
         )}
-          </Box>
-        </Box>
+          </RightBox>
+        </Container>
       </ThemeProvider>
-    </div>}
+    </App>}
     </>
   );
 };
