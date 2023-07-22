@@ -13,7 +13,7 @@ const Crypto = createContext<CryptoContextProps>({
   currency: "",
 });
 
-const context = ({children}: { children: ReactNode }) => {
+const Context = ({children}: { children: ReactNode }) => {
     const [symbol, setSymbol] = useState("$");
     const [currency, setCurrency] = useState("USD");
     useEffect(()=>{
@@ -27,7 +27,7 @@ const context = ({children}: { children: ReactNode }) => {
   )
 }
 
-export default context
+export default Context
 
 export const cryptoState = () =>{
     return useContext(Crypto);

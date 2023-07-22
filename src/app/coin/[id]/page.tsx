@@ -111,7 +111,7 @@ const RightBox = styled('div')(({ theme }) => ({
   }
 }));
 
-const page: React.FC<PageProps> = ({ params }) => {
+const Page: React.FC<PageProps> = ({ params }) => {
   const [coinData, setCoinData] = useState<Coin>({} as Coin);
   const [loading, setLoading] = useState(true);
   const [chatData, setChatData] = useState([]);
@@ -279,4 +279,4 @@ const page: React.FC<PageProps> = ({ params }) => {
   );
 };
 
-export default page;
+export default Page;

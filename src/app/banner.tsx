@@ -22,7 +22,7 @@ const Tagline = styled('div')(({theme})=>({
   flexDirection:"column"
 }))
 
-const banner = () => {
+const Banner = () => {
     // Define the media query
   const isSmallScreen = useMediaQuery('(max-width: 600px)');
   const isMobileScreen = useMediaQuery('(max-width: 480px)');
@@ -41,4 +41,4 @@ const banner = () => {
   </BannerStyle>;
 };
 
-export default banner;
+export default Banner;
